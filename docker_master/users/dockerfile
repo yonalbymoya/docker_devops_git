@@ -1,0 +1,7 @@
+FROM nginx:1.27.2
+
+RUN groupadd -r yon && useradd -r -g yon yon 
+RUN chown -R yon:yon /usr/share/nginx/html
+USER yon
+
+CMD ["bash", "-c", "echo Hello from appuser!" ]
