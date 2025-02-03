@@ -1,0 +1,8 @@
+#Capa uno
+FROM ubuntu:latest
+#Actualizacion
+RUN apt-get update && apt-get install -y curl
+#Copia fichero
+COPY . /app
+
+CMD ["echo","Hello World"]
