@@ -19,6 +19,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build the Docker image
-        run: docker build  --platform linux --tag ${{ secrets.DOCKERHUB_USERNAME }}/backenddockerci:latest -f docker_master/CI/ docker_master/CI/
+        run: docker build  --platform linux --tag ${{ secrets.DOCKERHUB_USERNAME }}/backenddockerci:latest -f docker_devops_git/docker_master/CI/dockerfile docker_devops_git/docker_master/CI/
       - name: Push the Docker image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/backenddockerci:latest
