@@ -1,0 +1,55 @@
+#PLANTILLA DE DOCKER-COMPOSE O CREACION DEL RUN
+
+version: '3.8'          #version docker compose
+
+services:
+
+  web:                  #nombre del servicio
+    image: nginx:latest #imagen de docker
+    ports:
+      - "80:80"         #puerto de la maquina y host pagina
+    volumes:            #volumen de la maquina host y contenedor
+      - ./web:/usr/share/nginx/html
+
+    enviroment:
+      -  NGINX_HOST=example.com
+                        #variables de entorno
+      -  NGINX_PORT= 80
+
+services:
+  proxy:
+    build: ./proxy
+    ports:
+      - "8080:80"
+    networks:
+      - red_balance
+
+    depends_on:         #dependencias
+      -sitio1
+      -sitio2
+      -sitio3
+
+  sitio1:
+    build: ./sitio1
+    networks:
+      - red_balance
+
+  sitio2:
+    build: ./sitio2
+    networks:
+      - red_balance
+    volumes:            #volumenes para persistencia
+      - db_data:/var/lib/postgresql/data
+
+  sitio3:
+    build: ./sitio3
+    networks:
+      - red_balance
+
+networks:
+    red_balance:
+      driver: bridge
+
+volumes:                #volumenes
+  db_data:              #nombre del volumen
+
